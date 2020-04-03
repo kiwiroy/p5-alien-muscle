@@ -36,7 +36,7 @@ WriteMakefile($abmm->mm_args(
 
   # If you are going to write the recommended
   # tests you will will want these:
-  TEST_REQUIRES => {'Test::Alien' => 0, 'Test2::V0' => 0,},
+  TEST_REQUIRES => {'Test::Alien' => 0, 'Test2::Suite' => '0.000129',},
 ));
 
 sub MY::postamble {

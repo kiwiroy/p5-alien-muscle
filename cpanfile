@@ -4,6 +4,8 @@ requires 'URI';
 requires 'Mojo::DOM58';
 requires 'Sort::Versions';
 
+test_requires 'Test2::Suite';
+
 on develop => sub {
    requires 'App::af';
 
