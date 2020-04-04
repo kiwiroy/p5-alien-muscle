@@ -30,12 +30,25 @@ jobs:
           - '5.24'
           - '5.22'
           - '5.20'
-          - '5.18'
           - '5.16'
-          - '5.14'
           - '5.12'
           - '5.10'
-        env: [ 'ALIEN_MUSCLE_FORCE_BINARY=1', 'ALIEN_MUSCLE_FORCE_BINARY=0' ]
+        force_binary: [ 0, 1 ]
+        exclude:
+          - perl-version: '5.28'
+            force_binary: 1
+          - perl-version: '5.26'
+            force_binary: 1
+          - perl-version: '5.24'
+            force_binary: 1
+          - perl-version: '5.22'
+            force_binary: 1
+          - perl-version: '5.20'
+            force_binary: 1
+          - perl-version: '5.16'
+            force_binary: 1
+          - perl-version: '5.12'
+            force_binary: 1
 
     container:
       image: perldocker/perl-tester:${{ matrix.perl-version }}
@@ -50,5 +63,7 @@ jobs:
         run: perl Makefile.PL
       - name: make
         run: make
+        env:
+          ALIEN_MUSCLE_FORCE_BINARY: ${{ matrix.force_binary }}
       - name: Run Tests
         run: make test
