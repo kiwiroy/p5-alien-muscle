@@ -35,6 +35,7 @@ jobs:
           - '5.14'
           - '5.12'
           - '5.10'
+        env: [ 'ALIEN_MUSCLE_FORCE_BINARY=1', 'ALIEN_MUSCLE_FORCE_BINARY=0' ]
 
     container:
       image: perldocker/perl-tester:${{ matrix.perl-version }}
