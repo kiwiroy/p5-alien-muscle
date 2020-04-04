@@ -11,11 +11,12 @@ WriteMakefile($abmm->mm_args(
   CONFIGURE_REQUIRES => {'Alien::Build::MM' => 0,},
   BUILD_REQUIRES     => {'Alien::Build::MM' => 0,},
   PREREQ_PM          => {
-    'Alien::Base'    => 0,
-    'Alien::Build'   => 0,
-    'URI'            => 0,
-    'Mojo::DOM58'    => 0,
-    'Sort::Versions' => 0,
+    'Alien::Base'        => 0,
+    'Alien::Build'       => 0,
+    'URI'                => 0,
+    'Mojo::DOM58'        => 0,
+    'Sort::Versions'     => 0,
+    'ExtUtils::CBuilder' => '0.27',
   },
 
   META_MERGE => {

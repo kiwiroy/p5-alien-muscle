@@ -5,6 +5,7 @@ use constant _darwin    => !!($^O eq 'darwin');
 use constant _linux     => !!($^O eq 'linux');
 use constant _win       => !!($^O eq 'MSWin32');
 use constant _sixtyfour => !!((POSIX::uname)[4] =~ m{_64});
+use ExtUtils::CBuilder 0.27;
 use File::Basename ();
 use Path::Tiny     ();
 
@@ -20,6 +21,9 @@ share {
   };
 
   if (meta_prop->{muscle_dist_type} eq 'source') {
+
+    meta_prop->{muscle_compiler} = {ExtUtils::CBuilder->new->get_config}->{cxx};
+
     plugin Download => (
       filter  => qr/^muscle[0-9\.]+_src\.tar\.gz$/,
       version => qr/^muscle([0-9\.]+)_src\.tar\.gz$/,
@@ -27,8 +31,8 @@ share {
 
     plugin Extract => 'tar.gz';
 
-    # sets meta_prop->{destdir}
-    plugin 'Build::Autoconf';
+    meta_prop->{destdir} = 1;
+    #plugin 'Build::Autoconf';
 
     build [\&_write_makefile, 'cd src', '%{make}', '%{make} install'];
   }
@@ -84,6 +88,7 @@ share {
 
 sub _pick_dist_type {
   return 'binary' if $ENV{ALIEN_MUSCLE_FORCE_BINARY};
+  return 'binary' unless ExtUtils::CBuilder->new->have_cplusplus;
   return 'binary' if _win;
   return 'source';
 }
@@ -97,14 +102,16 @@ sub _write_makefile {
   my $data = join '', <$handle>;
   $data =~ s/^.*\n__DATA__\r?\n/\n/s;
   my $prefix = $build->install_prop->{prefix};
+  my $cxx = $build->meta_prop->{muscle_compiler};
   log("PREFIX = $prefix");
+  log("CXX = $cxx");
   log("Writing src/Makefile");
-  Path::Tiny->new('src/Makefile')->spew("PREFIX = $prefix\n$data");
+  Path::Tiny->new('src/Makefile')
+      ->spew_utf8("PREFIX = $prefix\nCXX = $cxx\n$data");
 }
 
 __DATA__
-# PREFIX should be added above
-CXX=g++
+# PREFIX and CXX should be added above
 CXXFLAGS=
 LDFLAGS=
 
