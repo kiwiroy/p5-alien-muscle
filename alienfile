@@ -104,8 +104,8 @@ sub _write_makefile {
 
 __DATA__
 # PREFIX should be added above
-CC=g++
-CFLAGS=
+CXX=g++
+CXXFLAGS=
 LDFLAGS=
 
 # do not want gatest.cpp
@@ -135,13 +135,15 @@ objects = aligngivenpath.o aligngivenpathsw.o aligntwomsas.o aligntwoprofs.o \
   tracebackopt.o tracebacksw.o treefrommsa.o typetostr.o upgma2.o usage.o \
   validateids.o vtml2.o writescorefile.o
 
-%.o: %.cpp
+.SUFFIXES: .cpp .o
+
+.cpp.o:
 	@echo Compiling $<
-	@$(CC) $(CFLAGS) -c -O3 -msse2 -mfpmath=sse -D_FILE_OFFSET_BITS=64 -DNDEBUG=1 -o $@ $<
+	@$(CXX) $(CXXFLAGS) -c -O3 -msse2 -mfpmath=sse -D_FILE_OFFSET_BITS=64 -DNDEBUG=1 -o $@ $<
 
 muscle: $(objects)
 	@echo Linking $@
-	@$(CC) $(LDFLAGS) -g -o $@ $(objects)
+	@$(CXX) $(LDFLAGS) -g -o $@ $(objects)
 
 all: muscle
 
