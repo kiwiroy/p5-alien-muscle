@@ -16,7 +16,7 @@ WriteMakefile($abmm->mm_args(
     'URI'                => 0,
     'Mojo::DOM58'        => 0,
     'Sort::Versions'     => 0,
-    'ExtUtils::CBuilder' => '0.27',
+    'ExtUtils::CBuilder' => '0.280226',
   },
 
   META_MERGE => {

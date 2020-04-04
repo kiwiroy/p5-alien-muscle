@@ -3,7 +3,7 @@ requires 'Alien::Build';
 requires 'URI';
 requires 'Mojo::DOM58';
 requires 'Sort::Versions';
-requires 'ExtUtils::CBuilder' => '0.27';
+requires 'ExtUtils::CBuilder' => '0.280226';
 test_requires 'Test2::Suite' => '0.000129';
 
 on develop => sub {

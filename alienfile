@@ -5,7 +5,7 @@ use constant _darwin    => !!($^O eq 'darwin');
 use constant _linux     => !!($^O eq 'linux');
 use constant _win       => !!($^O eq 'MSWin32');
 use constant _sixtyfour => !!((POSIX::uname)[4] =~ m{_64});
-use ExtUtils::CBuilder 0.27;
+use ExtUtils::CBuilder 0.280226;
 use File::Basename ();
 use Path::Tiny     ();
 
