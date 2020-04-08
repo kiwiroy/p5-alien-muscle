@@ -93,4 +93,13 @@ install may be better in those situations.
 
 =back
 
+=head1 COPYRIGHT & LICENSE
+
+This library is free software. You can redistribute it and/or modify it under
+the same terms as Perl itself.
+
+=head1 AUTHORS
+
+Roy Storey - <kiwiroy@cpan.org>
+
 =cut
