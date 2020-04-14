@@ -12,7 +12,7 @@ WriteMakefile($abmm->mm_args(
   BUILD_REQUIRES     => {'Alien::Build::MM' => 0,},
   PREREQ_PM          => {
     'Alien::Base'        => 0,
-    'Alien::Build'       => 0,
+    'Alien::Build'       => '2.20',
     'URI'                => 0,
     'Mojo::DOM58'        => 0,
     'Sort::Versions'     => 0,

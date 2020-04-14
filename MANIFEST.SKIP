@@ -70,7 +70,9 @@
 ^MANIFEST\.SKIP
 ^README\.md
 ^README\.pod
-^\.perltidyrc
-^\.travis.yml
+^\.perltidyrc$
+^\.travis.yml$
 ^cpanfile\.snapshot$
 ^\.github/
+^\.cirrus\.yml$
+^_alien/
