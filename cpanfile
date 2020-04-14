@@ -1,5 +1,5 @@
 # -*- mode: perl; -*-
-requires 'Alien::Build';
+requires 'Alien::Build' => '2.20';
 requires 'URI';
 requires 'Mojo::DOM58';
 requires 'Sort::Versions';
