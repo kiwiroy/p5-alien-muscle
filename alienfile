@@ -1,17 +1,22 @@
 # -*- mode: perl; -*-
 use alienfile;
+configure {
+  requires 'POSIX';
+  requires 'ExtUtils::CBuilder' => '0.280226';
+};
 use POSIX ();
 use constant _darwin    => !!($^O eq 'darwin');
 use constant _linux     => !!($^O eq 'linux');
 use constant _win       => !!($^O eq 'MSWin32');
 use constant _sixtyfour => !!((POSIX::uname)[4] =~ m{_64});
 use ExtUtils::CBuilder 0.280226;
-use File::Basename ();
-use Path::Tiny     ();
 
 plugin 'Probe::CommandLine' => (command => 'muscle', args => ['-version']);
 
 share {
+  requires 'File::Basename';
+  requires 'Path::Tiny';
+
   start_url 'https://www.drive5.com/muscle/downloads.htm';
 
   meta_prop->{muscle_dist_type} = _pick_dist_type();
@@ -47,6 +52,7 @@ share {
       extract [
         sub {
           my $build   = shift;
+          require Path::Tiny;
           my $extract = Path::Tiny->new('.')->absolute;
           Path::Tiny->new($build->install_prop->{download})->copy($extract);
         }
@@ -68,6 +74,8 @@ share {
 
     before build => sub {
       my $build = shift;
+      require File::Basename;
+      require Path::Tiny;
       my ($binary) = Path::Tiny->new('.')->absolute->children(qr/^muscle/i);
       my $ext
         = (File::Basename::fileparse($binary->basename, qr/(\.exe)$/))[2] || '';
@@ -106,6 +114,7 @@ sub _write_makefile {
   log("PREFIX = $prefix");
   log("CXX = $cxx");
   log("Writing src/Makefile");
+  require Path::Tiny;
   Path::Tiny->new('src/Makefile')
       ->spew_utf8("PREFIX = $prefix\nCXX = $cxx\n$data");
 }
